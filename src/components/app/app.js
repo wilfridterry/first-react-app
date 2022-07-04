@@ -5,6 +5,28 @@ import EmployeesList from '../employees-list/employees-list';
 import SearchPanel from '../search-panel/search-panel';
 import './app.css';
 
+const users = [
+    {
+        id: 1,
+        name: 'Jonh Smith',
+        salary: 1000,
+        increase: true,
+    },
+    {
+        id: 2,
+        name: 'Sam Makarti',
+        salary: 800,
+        increase: false,
+    },
+    {
+        id: 3,
+        name: 'Den Vin',
+        salary: 2100,
+        increase: true,
+    },
+];
+
+
 function App() {
     return (
         <div className="app">
@@ -13,7 +35,7 @@ function App() {
                 <SearchPanel />
                 <AppFilter />
             </div>
-            <EmployeesList />
+            <EmployeesList users={users}/>
             <EmployeesAddForm />
         </div>
     );
