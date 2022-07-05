@@ -19,6 +19,7 @@ class EmployeesListItem extends Component {
     handleSelectedForIncreseOnClick() {
         this.setState(({isGoingIncrease}) => ({isGoingIncrease: !isGoingIncrease}));
     }
+
     render() {
     
         const {name, salary} = this.props.user;
@@ -48,7 +49,8 @@ class EmployeesListItem extends Component {
                     </button>
                     <button 
                         type="button"
-                        className="btn-trash btm-sm">   
+                        className="btn-trash btm-sm"
+                        onClick={this.props.onDelete}>   
                         <i className="fas fa-trash"></i>
                     </button>
                     <i className="fas fa-star"></i>
