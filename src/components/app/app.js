@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import uniqid from 'uniqid';
+import {nanoid} from 'nanoid';
 
 import AppFilter from '../app-filter/app-filter';
 import AppInfo from '../app-info/app-info';
@@ -46,7 +46,7 @@ class App extends Component {
             const newUsers = state.users.slice();
 
             newUsers.push({
-                id: uniqid(),
+                id: nanoid(),
                 name: name,
                 salary: salary,
                 increase: false
