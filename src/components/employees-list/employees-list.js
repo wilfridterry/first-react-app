@@ -1,7 +1,7 @@
 import './employees-list.css';
 import EmployeesListItem from '../employees-list-item/employees-list-item';
 
-const EmployeesList = ({users, onDelete}) => {
+const EmployeesList = ({users, onDelete, onToggleProp}) => {
     
     return (
         <ul className="app-list list-group">
@@ -10,6 +10,7 @@ const EmployeesList = ({users, onDelete}) => {
                     key={user.id} 
                     user={user} 
                     onDelete={() => onDelete(user.id)}
+                    onToggleProp={(e) => onToggleProp(user.id, e.currentTarget.dataset.toggle)}
                     /*{...item}*//>
             )}
         </ul>

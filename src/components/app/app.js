@@ -19,18 +19,21 @@ class App extends Component {
                 name: 'Jonh Smith',
                 salary: 1000,
                 increase: true,
+                rise: true
             },
             {
                 id: 2,
                 name: 'Sam Makarti',
                 salary: 800,
                 increase: false,
+                rise: false
             },
             {
                 id: 3,
                 name: 'Den Vin',
                 salary: 2100,
                 increase: true,
+                rise: false
             },
         ]};
     }
@@ -49,17 +52,32 @@ class App extends Component {
                 id: nanoid(),
                 name: name,
                 salary: salary,
-                increase: false
+                increase: false,
+                rise: false
             });
 
             return {users: newUsers};
         });
     }
 
+    handleToggleProp = (id, prop) => {
+        this.setState(({users}) => ({
+            users: users.map(user => {
+                if (user.id === id) {
+                    return {...user, [prop]: !user[prop]}
+                }
+                return user;
+            })
+        }));
+    }
+
     render() {
+        const users = this.state.users;
+        const increased = users.filter(user => user.increase);
+
         return (
             <div className="app">
-                <AppInfo />
+                <AppInfo all={users.length} increased={increased.length}/>
                 <div className="search-panel">
                     <SearchPanel />
                     <AppFilter />
@@ -67,6 +85,7 @@ class App extends Component {
                 <EmployeesList 
                     users={this.state.users}
                     onDelete={this.handleOnDelete}
+                    onToggleProp={this.handleToggleProp}
                     />
                 <EmployeesAddForm onCreate={this.handleOnCreate}/>
             </div>
