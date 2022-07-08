@@ -13,29 +13,33 @@ class App extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {users: [
-            {
-                id: 1,
-                name: 'Jonh Smith',
-                salary: 1000,
-                increase: true,
-                rise: true
-            },
-            {
-                id: 2,
-                name: 'Sam Makarti',
-                salary: 800,
-                increase: false,
-                rise: false
-            },
-            {
-                id: 3,
-                name: 'Den Vin',
-                salary: 2100,
-                increase: true,
-                rise: false
-            },
-        ]};
+        this.state = {
+            users: [
+                {
+                    id: 1,
+                    name: 'Jonh Smith',
+                    salary: 1000,
+                    increase: true,
+                    rise: true
+                },
+                {
+                    id: 2,
+                    name: 'Sam Makarti',
+                    salary: 800,
+                    increase: false,
+                    rise: false
+                },
+                {
+                    id: 3,
+                    name: 'Den Vin',
+                    salary: 2100,
+                    increase: true,
+                    rise: false
+                },
+            ],
+            term: '',
+            filter: 'all'
+        };
     }
 
     handleOnDelete = (i) => {
@@ -71,19 +75,56 @@ class App extends Component {
         }));
     }
 
+    searchUsers = (users, term) => {
+        if (term.length === 0) {
+            return users;
+        }
+
+        return users.filter(item => {
+            return item.name.search(term) !== -1;
+        });
+    }
+
+    filterUsers = (users, filter) => {
+        if (filter === 'rise') {
+            return users.filter(user => user.rise);
+        }
+
+        if (filter === 'more-1000') {
+            return users.filter(user => user.salary >= 1000);
+        }
+
+        return users;
+    }
+
+    handleChangeSearch = (term) => {
+        this.setState({term});
+    }
+
+    handleChangeFilter = (filter) => {
+        this.setState({filter});
+    }
+
     render() {
-        const users = this.state.users;
+        const {users, term, filter} = this.state;
         const increased = users.filter(user => user.increase);
+        
+        let filteredUsers = this.filterUsers(users, filter);
+
+        filteredUsers = this.searchUsers(filteredUsers, term);
 
         return (
             <div className="app">
-                <AppInfo all={users.length} increased={increased.length}/>
+                <AppInfo all={filteredUsers.length} increased={increased.length}/>
                 <div className="search-panel">
-                    <SearchPanel />
-                    <AppFilter />
+                    <SearchPanel term={term} onChange={this.handleChangeSearch}/>
+                    <AppFilter 
+                        onChange={this.handleChangeFilter} 
+                        filter={filter}     
+                    />
                 </div>
                 <EmployeesList 
-                    users={this.state.users}
+                    users={filteredUsers}
                     onDelete={this.handleOnDelete}
                     onToggleProp={this.handleToggleProp}
                     />
