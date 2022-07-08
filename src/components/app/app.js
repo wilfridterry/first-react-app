@@ -101,7 +101,7 @@ class App extends Component {
         this.setState({term});
     }
 
-    handleChangeFilter = (filter) => {
+    handleFilterSelect = (filter) => {
         this.setState({filter});
     }
 
@@ -119,7 +119,7 @@ class App extends Component {
                 <div className="search-panel">
                     <SearchPanel term={term} onChange={this.handleChangeSearch}/>
                     <AppFilter 
-                        onChange={this.handleChangeFilter} 
+                        onFilterSelect={this.handleFilterSelect} 
                         filter={filter}     
                     />
                 </div>

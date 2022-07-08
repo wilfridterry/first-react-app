@@ -5,7 +5,7 @@ class AppFilter extends Component {
 
     handleClick = (e) => {
         if (e.target.tagName === 'BUTTON') {
-            this.props.onChange(e.target.dataset.filter);
+            this.props.onFilterSelect(e.target.dataset.filter);
         }
     }
 
