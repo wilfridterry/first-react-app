@@ -1,40 +1,32 @@
-import { Component } from 'react';
 import './app-filter.css';
 
-class AppFilter extends Component {
+function AppFilter({filter, onFilterSelect}) {
 
-    handleClick = (e) => {
-        if (e.target.tagName === 'BUTTON') {
-            this.props.onFilterSelect(e.target.dataset.filter);
-        }
-    }
+    const buttonsData = [
+        {dataFilter: 'all', content: 'All employees'},
+        {dataFilter: 'rise', content: 'For a salary increase'},
+        {dataFilter: 'more-1000', content: 'Salary more than 1000$'},
+    ];
+    
+    const buttons = buttonsData.map(({dataFilter, content}) => {
+        const active = dataFilter === filter;
+        const className = active ? 'btn-light' : 'btn-outline-light';
 
-    render() {
-
-        const buttons = [
-            {dataFilter: 'all', content: 'All employees'},
-            {dataFilter: 'rise', content: 'For a salary increase'},
-            {dataFilter: 'more-1000', content: 'Salary more than 1000$'},
-        ];
-        
         return (
-            <div className="btn-group" onClick={this.handleClick}>
-                {buttons.map(({dataFilter, content}) => {
-                    const active = dataFilter === this.props.filter;
-                    const className = active ? 'btn-light' : 'btn-outline-light';
-
-                    return (
-                        <button data-filter={dataFilter}
-                            className={`btn ${className}`}
-                            type='button'
-                            key={dataFilter}>
-                            {content}
-                        </button>
-                    );
-                })}
-            </div>
+            <button
+                className={`btn ${className}`}
+                type='button'
+                key={dataFilter}>
+                onClick={() => onFilterSelect(dataFilter)}
+                {content}
+            </button>
         );
-   }
+    });
+    return (
+        <div className="btn-group">
+            {buttons}
+        </div>
+    );
 };
 
 export default AppFilter;
